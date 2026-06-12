@@ -27,21 +27,59 @@ public class VentaController {
         return ventaService.listarTodas();
     }
 
-    @GetMapping("/reporte-totales")
-    public List<Document> getVentasTotales(
-            @RequestParam(required = false) Integer puntoVenta,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate desde,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hasta,
-            @RequestParam(required = false) String obraSocial,
-            @RequestParam(required = false) Boolean esPrivado) {
-        return ventaService.obtenerTotalesVentas(puntoVenta, desde, hasta, obraSocial, esPrivado);
-    }
-
-    @GetMapping("/reporte-por-tipo")
-    public List<Document> getVentasPorTipoProducto(
-            @RequestParam(required = false) Integer puntoVenta,
+    // --- REPORTE 1 ---
+    @GetMapping("/cantidad-ventas-cadena-sucursal")
+    public Document getCantidadVentasCadenaYSucursal(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate desde,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hasta) {
-        return ventaService.obtenerVentasPorTipoProducto(puntoVenta, desde, hasta);
+        return ventaService.obtenerCantidadVentasCadenaYSucursal(desde, hasta);
+    }
+
+    // --- REPORTE 2 ---
+    @GetMapping("/ventas-por-obra-social")
+    public List<Document> getVentasPorObraSocial(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate desde,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hasta) {
+        return ventaService.obtenerVentasPorObraSocial(desde, hasta);
+    }
+
+    // --- REPORTE 3 ---
+    @GetMapping("/cobranza-cadena-sucursal")
+    public Document getCobranzaCadenaYSucursal(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate desde,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hasta) {
+        return ventaService.obtenerCobranzaCadenaYSucursal(desde, hasta);
+    }
+
+    // --- REPORTE 4 ---
+    @GetMapping("/ventas-por-tipo-producto")
+    public List<Document> getVentasPorTipoProducto(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate desde,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hasta) {
+        return ventaService.obtenerVentasPorTipoProductoerrata(desde, hasta);
+    }
+
+    // --- REPORTE 5 ---
+    @GetMapping("/ranking-productos-monto-sucursal")
+    public Document getRankingProductosMontoSucursal() {
+        return ventaService.obtenerRankingProductosPorMontoSucursal();
+    }
+
+    // --- REPORTE 6 ---
+    @GetMapping("/ranking-productos-cantidad-sucursal")
+    public Document getRankingProductosCantidadSucursal() {
+        return ventaService.obtenerRankingProductosPorCantidadSucursal();
+    }
+
+    // --- REPORTE 7 ---
+    @GetMapping("/ranking-clientes-total-cadena")
+    public List<Document> getRankingClientesTotalCadena() {
+        return ventaService.obtenerRankingClientesTotalCadena();
+    }
+
+    // --- REPORTE 8 ---
+    @GetMapping("/ranking-clientes-intra-sucursal")
+    public Document getRankingClientesIntraSucursal() {
+        return ventaService.obtenerRankingClientesIntraSucursal();
     }
 }
